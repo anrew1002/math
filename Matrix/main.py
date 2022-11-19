@@ -9,20 +9,36 @@ def matrix_copy(matrix: list) -> list:
     return [elem[:] for elem in matrix]
 
 
-def is_matrix_valid(matrix: list):
-    if len(matrix) == 1:
-        return True
-    for i in range(1, len(matrix)):
-        if len(matrix[i]) != len(matrix[i-1]):
-            return False
-    return True
+# def is_matrix_valid(matrix: list):
+#     if len(matrix) == 1:
+#         return True
+#     for i in range(1, len(matrix)):
+#         if len(matrix[i]) != len(matrix[i-1]):
+#             return False
+#     return True
 
 
-def matrix_exception(matrix):
-    if type(matrix) != list:
+def matrix_exception(matrix: list) -> None:
+    def is_matrix_valid(matrix):
+        if len(matrix) != 1:
+            for i in range(1, len(matrix)):
+                if len(matrix[i]) != len(matrix[i-1]):
+                    raise ValueError(
+                        f"Матрица {matrix} имеет разное кол-во элементов в строках")
+    if not (isinstance(matrix, list)):
         raise TypeError("Матрица должна быть задана типом list")
-    if not is_matrix_valid(matrix):
-        raise ValueError(f"Матрица неправильно задана {matrix_to_str(matrix)}")
+    for i in range(len(matrix)):
+        if isinstance(matrix[i], list):
+            is_matrix_valid(matrix)
+            for j in range(len(matrix[i])):
+                if not (isinstance(matrix[i][j], int | float)):
+                    raise TypeError(
+                        f"Матрица или ее элемент ,{matrix[i][j]},некорректного типа")
+        elif not (isinstance(matrix[i], int | float)):
+            raise TypeError(
+                f"Матрица или ее элемент ,{matrix[i]} coords: {i,j},некорректного типа")
+
+    return None
 
 
 def matrix_scalar_product(matrix: list, scalar: float) -> list:
@@ -94,22 +110,22 @@ def matrix_row_multiply(matrix: list, row: int, scalar: float) -> list:
 
 
 def add_multiplied_matrix_row(matrix: list, row_1, row_2, scalar) -> list:
-    """Сложение строки row2 с умноженой на scalar строки row_1"""
+    """Сложение строки row1 с умноженой на scalar строки row_2"""
     if row_1 == row_2:
         raise ValueError("Введены одинаковые строки")
     matrix = matrix_copy(matrix)
-    matrix[row_2] = vectors_add(
-        matrix[row_2], scalar_product(matrix[row_1], scalar))
+    matrix[row_1] = vectors_add(
+        matrix[row_1], scalar_product(matrix[row_2], scalar))
     return matrix
 
 
 def sub_multiplied_matrix_row(matrix: list, row_1, row_2, scalar) -> list:
-    """Вычитание строки row2 с умноженой на scalar строки row_1"""
+    """Вычитание строки row1 с умноженой на scalar строки row_2"""
     if row_1 == row_2:
         raise ValueError("Введены одинаковые строки")
     matrix = matrix_copy(matrix)
-    matrix[row_2] = vectors_sub(
-        matrix[row_2], scalar_product(matrix[row_1], scalar))
+    matrix[row_1] = vectors_sub(
+        matrix[row_1], scalar_product(matrix[row_2], scalar))
     return matrix
 
 

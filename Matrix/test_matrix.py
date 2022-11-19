@@ -13,16 +13,16 @@ class TestVectors(unittest.TestCase):
                   [1, 1]]
 
     def test_matrix_valid_raise(self):
-        self.assertTrue(is_matrix_valid([[1, 2, 3], [1, 2, 1]]))
-        self.assertFalse(is_matrix_valid([[1, 2, 4], [1, 2]]))
         with self.assertRaises(TypeError):
             matrix_exception((1, 2, 3))
             matrix_exception(1)
+            matrix_exception([[1, "2", "str"], [1, 2, 3]])
         with self.assertRaises(ValueError):
             matrix_exception([[1, 2, 3], [1, 2]])
 
     def test_matrix_copy(self):
         def deep_not_is(matrix1, matrix2, k=0):
+            """Глубокое применение  is """
             count = 0
             for i in range(len(matrix1)):
                 if matrix1[i] is matrix2[i]:
@@ -30,7 +30,7 @@ class TestVectors(unittest.TestCase):
                     if count > k:
                         return False
             return True
-        self.assertFalse(matrix_copy(self.a) is self.a)
+        self.assertIsNot(matrix_copy(self.a), self.a)
         self.assertTrue(deep_not_is(
             matrix_row_multiply(self.a, 1, 1), self.a, 1))
         self.assertTrue(deep_not_is(matrix_scalar_product(self.a, 0), self.a))
@@ -55,7 +55,29 @@ class TestVectors(unittest.TestCase):
     def test_matrix_multiply(self):
         self.assertEqual(matrix_multiply(self.a, self.b), [[4, 3], [16, 10]])
         with self.assertRaises(ValueError):
-            matrix_multiply(self.a, self.b[0])
+            matrix_multiply(self.a, [self.b[0]])
+
+    def test_matrix_scalar(self):
+        self.assertEqual(matrix_scalar_product(self.a, 2), [[2, 4], [12, 8]])
+        self.assertIsNot(matrix_scalar_product(self.a, 2), self.a)
+
+    def test_add_sub_multiplied_row(self):
+        self.assertEqual(add_multiplied_matrix_row(
+            self.a, 0, 1, 3), [[19, 14], [6, 4]])
+        self.assertEqual(sub_multiplied_matrix_row(
+            self.a, 1, 0, 2), [[1, 2], [4, 0]])
+
+    def test_matrix_row_multiply(self):
+        self.assertEqual(matrix_row_multiply(self.a, 0, 2), [[2, 4], [6, 4]])
+        self.assertIsNot(matrix_row_multiply(self.a, 0, 2), self.a)
+
+    def test_swap_row(self):
+        self.assertEqual(swap_matrix_row(self.a, 0, 1), [[6, 4], [1, 2]])
+        self.assertIsNot(swap_matrix_row(self.a, 0, 1), self.a)
+
+    def get_row_column(self):
+        self.assertEqual(get_matrix_column(self.a, 0), [1, 6])
+        self.assertEqual(get_matrix_row(self.a, 0), [1, 2])
 
 
 if __name__ == '__main__':
