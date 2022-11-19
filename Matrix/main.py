@@ -1,7 +1,7 @@
 from modules.vectors import *
 
 
-def matrix_to_str(matrix):
+def matrix_to_str(matrix: list) -> str:
     return '\n'.join(map(str, (matrix)))+"\n"
 
 
@@ -115,7 +115,7 @@ def add_multiplied_matrix_row(matrix: list, row_1, row_2, scalar) -> list:
         raise ValueError("Введены одинаковые строки")
     matrix = matrix_copy(matrix)
     matrix[row_1] = vectors_add(
-        matrix[row_1], scalar_product(matrix[row_2], scalar))
+        matrix[row_1], matrix_row_multiply(matrix, row_2, scalar)[row_2])
     return matrix
 
 
@@ -125,7 +125,7 @@ def sub_multiplied_matrix_row(matrix: list, row_1, row_2, scalar) -> list:
         raise ValueError("Введены одинаковые строки")
     matrix = matrix_copy(matrix)
     matrix[row_1] = vectors_sub(
-        matrix[row_1], scalar_product(matrix[row_2], scalar))
+        matrix[row_1], matrix_row_multiply(matrix, row_2, scalar)[row_2])
     return matrix
 
 

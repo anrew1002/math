@@ -54,6 +54,15 @@ class TestVectors(unittest.TestCase):
 
     def test_matrix_multiply(self):
         self.assertEqual(matrix_multiply(self.a, self.b), [[4, 3], [16, 10]])
+        mt1 = [[1, 2, 2],
+               [6, 4, 2]
+               ]
+        mt2 = [[2, 2],
+               [2, 2],
+               [3, 3]
+               ]
+        self.assertEqual(matrix_multiply(mt1, mt2), [[12, 12], [26, 26]])
+
         with self.assertRaises(ValueError):
             matrix_multiply(self.a, [self.b[0]])
 
