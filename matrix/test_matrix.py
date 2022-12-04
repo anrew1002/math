@@ -1,6 +1,6 @@
 import unittest
-from main import *
-from modules.vectors import *
+from matrix.matrix import *
+from vectors.vectors import *
 import math
 
 

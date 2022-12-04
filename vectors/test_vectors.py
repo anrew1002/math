@@ -1,5 +1,5 @@
 import unittest
-from vectors import *
+from vectors.vectors import *
 import math
 
 

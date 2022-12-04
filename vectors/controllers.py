@@ -1,4 +1,4 @@
-from vectors import *
+from vectors.vectors import *
 
 
 def input_equal_vectors() -> tuple:

@@ -1,4 +1,4 @@
-from modules.vectors import *
+from vectors.vectors import *
 
 
 def matrix_to_str(matrix: list) -> str:
