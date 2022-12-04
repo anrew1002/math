@@ -10,12 +10,12 @@ Created on Thu Oct  6 12:25:31 2022
 import math
 
 
-def add(a: list, b: list) -> list:
+def vectors_add(a: list, b: list) -> list:
     """Сложение векторов"""
     return [x+y for x, y in zip(a, b)]
 
 
-def sub(a: list, b: list) -> list:
+def vectors_sub(a: list, b: list) -> list:
     """Вычитание векторов"""
     return [x-y for x, y in zip(a, b)]
 

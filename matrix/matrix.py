@@ -129,6 +129,27 @@ def sub_multiplied_matrix_row(matrix: list, row_1, row_2, scalar) -> list:
     return matrix
 
 
+def matrix_slice(matrix: list, step=1):
+    """Возвращает срез матрицы без первой строки и последней"""
+    matrix = matrix_copy(matrix)
+    matrix = matrix[step:]
+    matrix = matrix_transpose(matrix)
+    matrix = matrix[step:]
+    return matrix_transpose(matrix)
+
+
+def matrix_reverse(matrix: list):
+    "Возвращает реверс версию"
+    matrix = matrix_copy(matrix)
+    matrix_x = matrix_transpose(matrix).pop()
+    for row in range(len(matrix)):
+        matrix[row].pop()
+        matrix[row] = matrix[row][::-1]
+    for row in range(len(matrix)):
+        matrix[row].append(matrix_x[row])
+    return matrix[::-1]
+
+
 if __name__ == "__main__":
     test_matrix = [[1, 2],
                    [3, 4],

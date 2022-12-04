@@ -1,30 +1,9 @@
 import logging
-from modules.matrix import *
-from modules.vectors import *
+from matrix.matrix import *
+from vectors.vectors import *
 
 logging.basicConfig(level=logging.CRITICAL,
                     filename="py_log.log", filemode="w")
-
-
-def matrix_slice(matrix: list, step=1):
-    """Возвращает срез матрицы без первой строки и последней"""
-    matrix = matrix_copy(matrix)
-    matrix = matrix[step:]
-    matrix = matrix_transpose(matrix)
-    matrix = matrix[step:]
-    return matrix_transpose(matrix)
-
-
-def matrix_reverse(matrix: list):
-    "Возвращает реверс версию"
-    matrix = matrix_copy(matrix)
-    matrix_x = matrix_transpose(matrix).pop()
-    for row in range(len(matrix)):
-        matrix[row].pop()
-        matrix[row] = matrix[row][::-1]
-    for row in range(len(matrix)):
-        matrix[row].append(matrix_x[row])
-    return matrix[::-1]
 
 
 def slay_row_swap(slay):
@@ -79,25 +58,3 @@ def slay_calculation(slay: list) -> list:
     output = slay_calculation_direct_part(slay)
     logging.info("direct part was succsesfull")
     return matrix_reverse(slay_calculation_direct_part(matrix_reverse(output)))
-
-
-if __name__ == "__main__":
-    def main():
-        test_slay = [
-            [2.0, 3.0, 2.0],
-            [4.0, 3.0, 7.0]
-        ]
-        test_slay_2 = [[-1, 2, 6, 15],
-                       [3, -6, 0, -9],
-                       [1, 0, 6, 5]
-                       ]
-        test_slay_3 = [
-            [1, 1, 1, 0],
-            [4, 2, 1, 1],
-            [9, 3, 1, 3]
-        ]
-        # logging.info(f"rev: \n{matrix_to_str(matrix_reverse(test_slay_3))}")
-        otv = slay_calculation(test_slay_2)
-        logging.info(f"otv: \n{matrix_to_str(otv)}")
-        # logging.debug(f"gl-it:{glob_iter}")
-    main()
