@@ -138,16 +138,20 @@ def matrix_slice(matrix: list, step=1):
     return matrix_transpose(matrix)
 
 
-def matrix_reverse(matrix: list):
+def matrix_reverse(matrix: list, step=1):
     "Возвращает реверс версию"
     matrix = matrix_copy(matrix)
-    matrix_x = matrix_transpose(matrix).pop()
+    matrix_x = []
+    tranposed_matrix = matrix_transpose(matrix)
+    for i in range(step):
+        matrix_x.append(tranposed_matrix.pop())
     for row in range(len(matrix)):
-        matrix[row].pop()
+        for i in range(step):
+            matrix[row].pop()
         matrix[row] = matrix[row][::-1]
-    for row in range(len(matrix)):
-        matrix[row].append(matrix_x[row])
-    return matrix[::-1]
+    matrix = matrix_transpose(matrix)
+    matrix.extend(matrix_x[::-1])
+    return matrix_transpose(matrix)[::-1]
 
 
 if __name__ == "__main__":
