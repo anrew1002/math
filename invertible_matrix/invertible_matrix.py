@@ -3,6 +3,7 @@ import logging as log
 
 
 def invert_matrix(matrix: list) -> list:
+    """Поворот матрицы по диагонали"""
     matrix_len = len(matrix[0])
     matrix = identity_matrix_add(matrix)
     direct_part_matrix = slay_calculation_direct_part(matrix)
@@ -13,6 +14,7 @@ def invert_matrix(matrix: list) -> list:
 
 
 def identity_matrix_add(matrix: list) -> list:
+    """Добавление единичной матрицы"""
     original_matrix = matrix
     matrix = matrix_copy(matrix)
     for i in range(len(original_matrix)):
@@ -23,6 +25,7 @@ def identity_matrix_add(matrix: list) -> list:
 
 
 def invert_matrix_slay_calc(matrix_a: list, matrix_b: list) -> list:
+    """Расчет слау при помощи обратной матрицы"""
     matrix_a = invert_matrix(matrix_a)
     matrix_b = matrix_copy(matrix_b)
     return matrix_multiply(matrix_a, matrix_b)
